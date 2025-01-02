@@ -1,6 +1,14 @@
+import random
+import string
 from django.db import models
+from django.core.exceptions import ValidationError
 
-# Create your models here.
+
+
+def generate_short_code(length=6):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choices(characters, k=length))
+
 
 class URL(models.Model):
     original_url = models.URLField(unique=True, help_text="The original long URL.")
