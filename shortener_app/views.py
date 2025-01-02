@@ -25,4 +25,12 @@ def resolve_short_url(request, short_code):
     
     url_instance = get_object_or_404(URL, short_code=short_code)
     return redirect(url_instance.original_url)
+
+
+@api_view(['GET'])
+def list_short_urls(request):
+    #List all shortened URLs.
     
+    urls = URL.objects.all()
+    serializer = URLSerializer(urls, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
